@@ -77,18 +77,18 @@ monthMap = {
     12: "DEC"
 }
 
-def process_file(path_list):    
-    for path in path_list:
+def processFile(pathList):    
+    for path in pathList:
         try:            
             date = time.localtime( os.path.getmtime( path["sourcePath"] ) )
-            string_format = monthMap.get(date.tm_mon) + '-' + str(date.tm_year)
-            target_path = path["targetPath"] + '/' + string_format
+            stringFormat = monthMap.get(date.tm_mon) + '-' + str(date.tm_year)
+            targetPath = path["targetPath"] + '/' + stringFormat
             
-            if os.path.exists( target_path ):
-                shutil.move( path["sourcePath"], target_path )
+            if os.path.exists( targetPath ):
+                shutil.move( path["sourcePath"], targetPath )
             else:
-                os.makedirs(target_path)
-                shutil.move( path["sourcePath"], target_path )
+                os.makedirs(targetPath)
+                shutil.move( path["sourcePath"], targetPath )
         except Exception as error:
             print('Exception ' )
             print( error)
@@ -128,5 +128,5 @@ for file in fileList:
         #print(inst)
 
 for fileType in fileDict:    
-    thread = Thread(target=process_file, args=(fileDict[fileType],) )
+    thread = Thread(target=processFile, args=(fileDict[fileType],) )
     thread.start()
